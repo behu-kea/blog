@@ -32,6 +32,8 @@
 - Indent code: `option` + `cmd` + `l`
 - Comment out using block - `cmd` + `*`
 - Next occurence - `ctrl` + `g`
+- Run project - `Shift` + `ctrl` +  `r` 
+- Reload project - `ctrl` + `r`
 
 
 
