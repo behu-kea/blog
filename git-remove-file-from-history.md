@@ -28,17 +28,3 @@ Again remember to backup the file, since the history will be changed, so you don
 
 
 
-```
-<ul th:each="wishlist : ${all-wishlists}">
-    <li th:text="${wishlist.getTitle()}"></li>
-</ul>
-```
-
-
-
-
-
-
-
-
-
