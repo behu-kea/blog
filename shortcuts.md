@@ -1,5 +1,7 @@
 # Shortcuts
 
+
+
 ## Mac
 
 -  Like `ctrl` + `alt` + `del` in windows - `option` + `cmd` + `esc`

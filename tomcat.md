@@ -1,0 +1,105 @@
+# Tomcat
+
+
+
+## Installing tomcat
+
+
+
+```
+sudo yum install wget
+cd ~
+wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.44/bin/apache-tomcat-9.0.44.tar.gz
+sudo mkdir /opt/tomcat
+sudo tar xvf apache-tomcat-9*tar.gz -C /opt/tomcat --strip-components=1
+```
+
+
+
+## Running and stopping tomcat
+
+You might need to be root to run the following line. If you do write 
+
+```bash
+sudo su
+```
+
+
+
+To start the tomcat server
+
+```bash
+./opt/tomcat/bin/startup.sh
+```
+
+
+
+To stop the tomcat server
+
+```bash
+./opt/tomcat/bin/shutdown.sh
+```
+
+
+
+Now you can go to http://server_IP_address:8080
+
+
+
+## Allow Tomcat Manager & Host Manager Access from Remote Host
+
+This means you will be able to go to http://3.15.43.206:8080/manager/html/
+
+
+
+Create a new file called `manager.xml` 
+
+```bash
+sudo vim /opt/tomcat/conf/Catalina/localhost/manager.xml
+```
+
+Now add the following lines to the file:
+
+```xml
+<Context privileged="true" antiResourceLocking="false" 
+         docBase="{catalina.home}/webapps/manager">
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />
+</Context>
+```
+
+If you have not used `vim` before then you need to figure out how to do that or you can watch this video on creating a new file in `vim`: https://www.youtube.com/watch?v=FLCCqzwHB5s
+
+
+
+Now do the same with this file:
+
+```bash
+sudo vim /opt/tomcat/conf/Catalina/localhost/host-manager.xml
+```
+
+```xml
+<Context privileged="true" antiResourceLocking="false" 
+         docBase="${catalina.home}/webapps/host-manager">
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="^.*$" />
+</Context>
+```
+
+
+
+## Adding a user to the tomcat server
+
+
+
+```bash
+vim /opt/tomcat/conf/tomcat-users.xml
+```
+
+Add the following before  the `</tomcat-users>` tag
+
+```xml
+<role rolename="manager-gui"/>
+<user username="USERNAME" password="PASSWORD" roles="manager-gui"/>
+```
+
+
+

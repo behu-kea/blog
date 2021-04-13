@@ -41,7 +41,7 @@
 #### Example:
 
 ```
-	$ ssh -i "myFirtKey.pem" ec2-user@ec2-18-196-109-146.eu-central-1.compute.amazonaws.com
+	$ ssh -i "EC2testinstance.pem" ec2-user@ec2-3-15-43-206.us-east-2.compute.amazonaws.com
 ```
 
 Din <public DNS> finder du i dit EC2 Dashboard.    
