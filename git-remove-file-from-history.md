@@ -26,3 +26,10 @@ Again remember to backup the file, since the history will be changed, so you don
 
 
 
+## `.gitignore` not working
+
+```bash
+git rm -rf --cached .
+git add .
+```
+
