@@ -29,7 +29,8 @@ sudo su
 To start the tomcat server
 
 ```bash
-./opt/tomcat/bin/startup.sh
+cd /opt/tomcat/bin/
+./startup.sh
 ```
 
 
@@ -37,7 +38,8 @@ To start the tomcat server
 To stop the tomcat server
 
 ```bash
-./opt/tomcat/bin/shutdown.sh
+cd /opt/tomcat/bin/
+./shutdown.sh
 ```
 
 
