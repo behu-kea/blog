@@ -113,7 +113,7 @@ In your `pom.xml` file add the following
 <packaging>war</packaging>
 ```
 
-Also remember to add the java version to your `pom.xml` file
+Also remember to add the java version to your `pom.xml` file. Remember to install the latest version og java on the server: `sudo yum install java`
 
 ```xml
 <properties>
