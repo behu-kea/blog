@@ -1,25 +1,5 @@
 # Exercise formulation
 
-Det kan være svært at lave opgaver til de studerende der går godt. De studerende kan misforstå, bruge tiden forkert, sidde fast og hvad ved jeg. Til at lave bedre opgaver har jeg undersøgt lidt
-
-
-
-Her er noget af det jeg kæmper lidt med
-
-- Jeg føler mit problem er at jeg leder for meget, holder for meget i hånden. 
-
-- Jeg synes tit at de studerende misforstår og det er derfor jeg tit holder lidt meget i hånden for at sikre mig at de bruger tiden på det opgaven er tiltænkt. 
-
-- Jeg laver ofte kode der sætter de studerende op så de er klar til en opgave, men det backfirer ofte. 
-
-- Da opgaverne er mindre, er det vigtigt at de studerende bruger tiden rigtigt
-
-
-
------
-
-
-
 From Principles for designing programming exercises to minimise poor learning behaviours in students https://dl-acm-org.ez-kea.statsbiblioteket.dk:12048/doi/pdf/10.1145/359369.359374
 
 
