@@ -34,7 +34,7 @@ Habits/traits that act as barriers to quality learning:
 
 
 
-![Screenshot 2021-04-16 at 13.29.05](../../../screenshots/Screenshot 2021-04-16 at 13.29.05.png)
+![Screenshot 2021-04-16 at 13.29.05](../assets/superficial-learning-student-3.png)
 
 
 
