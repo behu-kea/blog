@@ -16,19 +16,19 @@ Her er noget af det jeg kæmper lidt med
 
 
 
-## Principles for designing programming exercises to minimise poor learning behaviours in students
-
-https://dl-acm-org.ez-kea.statsbiblioteket.dk:12048/doi/pdf/10.1145/359369.359374
+-----
 
 
 
-### Poor learning tendencies
-
-Habits/traits that act as barriers to quality learning:
+From Principles for designing programming exercises to minimise poor learning behaviours in students https://dl-acm-org.ez-kea.statsbiblioteket.dk:12048/doi/pdf/10.1145/359369.359374
 
 
 
-#### Superficial learning
+There are 3 main habits/traits that act as barriers to quality learning. Superficial learning, impulsive attention and staying stuck. They will here be discussed
+
+
+
+## Superficial learning
 
 **Definition**: Skimming text without really gaining meaning from it. 
 
@@ -47,7 +47,7 @@ Habits/traits that act as barriers to quality learning:
 
 
 
-### Impulsive attention
+## Impulsive attention
 
 **Definition**: Only parts of an exercise are attended but others are overlooked
 
@@ -72,7 +72,7 @@ Tasks that do not emphasise the key concept and tasks that contained too many un
 
 
 
-### Staying stuck
+## Staying stuck
 
 **Definition**: Lack of strategy to cope with being stuck. Students being stuck with a problem and not being able to get them selves out of the mess. 
 
