@@ -9,6 +9,7 @@
 - Paste without formatting - `cmd` + `option` + `shift` + `v`
 - Alt tab windows - `option` + `tab` with AltTab application
 - Click screenshot - `shift` + `cmd` + `4`
+- Emoji - `cmd` + `ctrl` + `space`
 
 
 
