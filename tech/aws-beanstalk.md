@@ -47,3 +47,8 @@ To change that you can do one of these two things:
 1. Add `server.port=5000` in your `application.properties` file. Remember to put the `application.properties` in the `/src/main/resources` folder
 2. In the Configuration (in the left side of the site, maybe click the hamburger menu to open it). Click `Edit` at the Software category. In the Environment properties add `server.port` as Name and `5000` as Value
 
+
+
+## See the logs
+
+You can see the logs in the left side by clicking on Logs. In the top click `Request logs` the select `Last 100 lines` and `Download`
