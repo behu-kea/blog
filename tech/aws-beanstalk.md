@@ -14,6 +14,8 @@ Choose `Web server envirenment`
 
 The platform should be  `Java`. As the application code upload a jar file👇
 
+You can also choose Tomcat, but then you need to upload a WAR file. 
+
 
 
 ## Creating a jar file
