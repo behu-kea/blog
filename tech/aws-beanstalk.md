@@ -40,6 +40,8 @@ The file will be added to the `target` folder as `APPLICATION_NAME-APPLICATION_V
 
 ## Adding the right port
 
+If you are running this using `Java` the you need to do this port thing
+
 Now if you go to the application you will probably see a 502 bad gateway, that is because beanstalk is listening on port 5000, but spring boot is running the application on 8080. 
 
 
