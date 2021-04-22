@@ -65,7 +65,7 @@ You can see the logs in the left side by clicking on Logs. In the top click `Req
 
 - Add a `ServletInitializer.java` in the folder that has the main java file. In my example the folder is called `src/main/java/com/example/demo`
 
-Remember to change the `package`
+**Remember to change the `package`!!**
 
 ```java
 package com.example.demo;
