@@ -70,3 +70,7 @@ Find a specific file - `find` and then what you are looking for. Fx `find *java*
 
 
 
+## Presentify
+
+- Toggle annotate screen - `crtl` + `a`
+
