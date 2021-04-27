@@ -103,7 +103,9 @@ public class ServletInitializer extends SpringBootServletInitializer {
 }
 ```
 
-**Remember to change the `package`!!**
+**Remember to change the `package` and the `DemoApplication` so it fits your program.** 
+
+Instead of `DemoApplication` write the name of the main springboot class
 
 
 
@@ -178,32 +180,16 @@ You can see the logs in the left side by clicking on Logs. In the top click `Req
 
 
 
-## Seeing logs from the Spring boot application
+## Connecting a database
 
-If you use Tomcat as the platform then the logs you will se is from Tomcat **not** from the Spring boot application!
+Before you connect to the database write this line
 
-To see the logs from the Spring boot application create a new Beanstalk application and as the `Platform branch` select `Tomcat 8.5 with Java 8 running on 64bit Amazon Linux`
+```java
+try {
+	Class.forName("com.mysql.jdbc.Driver");
+} catch (ClassNotFoundException e) {
+  System.out.println("Where is your MySQL JDBC Driver?");
+  e.printStackTrace();
+}
+```
 
-
-
-![Screenshot 2021-04-22 at 10.01.00](../assets/beanstalk-tomcat.png)
-
-
-
-Now if you log something from your Spring boot application you will be able to see them in the logs:
-
-![Beanstalk logs](../assets/beanstalk-logs.png)
-
-
-
-![Beanstalk logs Spring boot](../assets/beanstalk-logs-spring-boot.png)
-
-
-
-The log is coming from here:
-
-![Spring boot log](../assets/spring-boot-log.png)
-
-
-
-So if you get a 500 error message you need to go to the Beanstalk logs and find out what the problem is!
