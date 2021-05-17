@@ -74,3 +74,11 @@ Find a specific file - `find` and then what you are looking for. Fx `find *java*
 
 - Toggle annotate screen - `crtl` + `a`
 
+
+
+## Iterm2
+
+Nice theme: https://gist.github.com/leymannx/598e0e92722f47cfb31daa7cf9f9a817
+
+
+
