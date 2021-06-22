@@ -1,5 +1,7 @@
 # Java streams
 
+Consider readeing about Java Functional Programming on this blog before diving into streams!
+
 Java streams make it easier to work with lists. 
 
 You take a `List` and call `.stream()` on the `List`. Now dependent on what you want to do you can either filter, sort, map, foreach and some other things too. 
