@@ -23,10 +23,6 @@ To log in, the username is `user` and the password will appear in the terminal w
 
 
 
-
-
-
-
 ## Basic authentication
 
 When a client needs to access a page he sends the username and the password in the request header
@@ -155,9 +151,21 @@ http
 
 
 
-
-
 ## Adding authority to users
+
+Remember that to make this work for now, disable CSRF:
+
+```java
+http
+    .csrf().disable()
+    .authorizeRequests()
+    .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+    ...
+```
+
+BUT remember to enable it later when you know about CSRF!!! Otherwise your site wont be secure!
+
+
 
 So far we have only given `roles` to users, let's look at how to add authority to users
 
@@ -236,4 +244,52 @@ public void registerNewStudent(@RequestBody Student student) {
 ```
 
 
+
+## CSRF
+
+CSRF stands for cross site request forgery. It means the action of forging a copy or imitation of a document/signature/banknote. https://www.youtube.com/watch?v=eWEgUcHPle0
+
+
+
+To fix this problem the server will send a CSRF token on login. Now on every request the client will send that token. The server will then validate that token.
+
+![CleanShot 2021-06-24 at 12.04.33@2x](../assets/csrf-flow.png)
+
+
+
+### Generate CSRF token
+
+Add this to the `ApplicationSecurityConfig` file 👇
+
+```java
+http
+   .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+    .and()
+    .authorizeRequests()
+  	... 
+```
+
+This will send a CSRF token on every request. This token then needs to be sent back on every request.
+
+
+
+#### Getting the CSRF token
+
+In Postman to get the CSRF token, first make a `GET` request to `localhost:8080/management/api/v1/students/`. Then under `Cookies` look after the `XSRF-TOKEN`
+
+![CleanShot 2021-06-24 at 12.36.03@2x](../assets/get-xsrf-token.png)
+
+
+
+#### Sending request with token
+
+Now add the XSRF token to the request headers. 
+
+![Send CSRF token](../assets/send-xsrf-token.png)
+
+
+
+
+
+## Form based authentication
 
