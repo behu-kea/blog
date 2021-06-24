@@ -1,5 +1,9 @@
 # Spring security
 
+This documentation has been written following this video course: https://www.youtube.com/watch?v=her_7pa0vrg
+
+
+
 Spring security enables us to secure our application. It is sespecially useful for things like login, user creation, user authentification, etc.
 
 Spring Security works by creating a class that `extends` the `WebSecurityConfigurerAdapter`. You then override methods to achieve functionality.
@@ -292,4 +296,117 @@ Now add the XSRF token to the request headers.
 
 
 ## Form based authentication
+
+In form based authentication the client `post`'s the username and password. The server then validatest those credentials and sends back a cookie `SESSIONID`. This `SESSIONID` should then be attached to every request when requesting something from the client.
+
+ ![Form based authentication](../assets/form-based-authentication.png)
+
+
+
+Now instead of 
+
+```java
+.and()
+.httpBasic();
+```
+
+Write 
+
+```java
+.and()
+.formLogin();
+```
+
+Now you should see the login page. 
+
+
+
+## Custom login page
+
+To create a login page add this to the `http` object in the `ApplicationSecurityConfig` file.
+
+```
+.and()
+.formLogin()
+.loginPage("/login");
+```
+
+
+
+Add thymeleaf to the project in the `pom.xml` file
+
+```
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+```
+
+Create a new folder under `resources` folder called **exactly** `templates`
+
+Create a new `login.html` file in the `templates` folder
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+	<h1>Login here!</h1>
+</body>
+</html>
+```
+
+Now create a new controller called `TemplateController` in a new package called `controller` under `com.example.demo` or whatever yours is called.
+
+
+
+**TemplateController.java**
+
+```java
+package com.example.demo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/")
+public class TemplateController {
+    public String getLoginView() {
+        return "login";
+    }
+}
+```
+
+
+
+**login.html**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Login here!</h1>
+
+<form class="form-signin" method="post" action="/login">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <p>
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" autofocus="">
+    </p>
+    <p>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+    </p>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
+</body>
+</html>
+```
 
