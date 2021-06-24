@@ -124,3 +124,116 @@ Here is another role the student with different permissions. Fx the student cann
 
 An example of this is an api that where access is limited to some users. So some endpoints will need a specific role. 
 
+
+
+## Role based authentication
+
+When creating the users, you can specify the roles:
+
+```java
+UserDetails annaSmithUser = User.builder()
+        .username("annasmith")
+        .password(new BCryptPasswordEncoder().encode("password"))
+        .roles("STUDENT") // internally ROLE_STUDENT
+        .build();
+```
+
+
+
+Now in the `ApplicationSecurityConfig.java` we can tell that specific roles have access to some endpoints: 
+
+```java
+http
+    .authorizeRequests()
+    .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+    .antMatchers("/api/**").hasRole("STUDENT")
+    .anyRequest()
+    .authenticated()
+    .and()
+    .httpBasic();
+```
+
+
+
+
+
+## Adding authority to users
+
+So far we have only given `roles` to users, let's look at how to add authority to users
+
+```java
+Set<SimpleGrantedAuthority> authorities = Sets.newHashSet(new SimpleGrantedAuthority("course:read"), new SimpleGrantedAuthority("student:write"));
+
+
+UserDetails annaSmithUser = User.builder()
+    .username("annasmith")
+    .password(new BCryptPasswordEncoder().encode("password"))
+    .authorities(authorities)
+    .build();
+```
+
+You add authorities to users, bu using the `.authorities` method. When calling this method you need to give is a `List` of `SimpleGrantedAuthority` objects. The `SimpleGrantedAuthority` takes a `String` which is the name of the authority.
+
+
+
+## Permission/authority based authentication
+
+Two ways to to permission based authentication. Either with `antMatchers` or inline with annotations. 
+
+
+
+### `antMatchers`
+
+Here we add `antMatchers` for specific request types
+
+```java
+.antMatchers(HttpMethod.DELETE, "/management/api/**").hasAuthority("course:write")
+.antMatchers(HttpMethod.POST, "/management/api/**").hasAuthority("course:write")
+.antMatchers(HttpMethod.PUT, "/management/api/**").hasAuthority("course:write")
+.antMatchers(HttpMethod.GET, "/management/api/**").hasAuthority("course:read")
+```
+
+The order of the `antMatchers` matter. It takes the first one then the next etc. 
+
+
+
+### Inline annotation authority permissions
+
+We can add annotations inline in our controller to specify who has access to what. To make this work first add the `@EnableGlobalMethodSecurity(prePostEnabled = true)` annotation before the `ApplicationSecurityConfig` file.
+
+```java
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final PasswordEncoder passwordEncoder;
+		...
+```
+
+
+
+Now in the controller both roles and authorities can be used using the `@PreAuthorize` annotation. Here is an example with checking the role `hasAnyRole`
+
+```java
+@GetMapping
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
+public static List<Student> getAllStudents() {
+    return STUDENTS;
+}
+```
+
+
+
+Here is an example using authority using `hasAuthority`
+
+```java
+@PostMapping
+@PreAuthorize("hasAuthority('student:write')")
+public void registerNewStudent(@RequestBody Student student) {
+    System.out.println("register");
+    System.out.println(student);
+}
+```
+
+
+
