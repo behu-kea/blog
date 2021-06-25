@@ -102,6 +102,8 @@ protected UserDetailsService userDetailsService() {
 
 Here we give the user Anna Smith a username and a password. Remember the password has to be encoded using BCrypt!
 
+This is saving the users in memory using `InMemoryUserDetailsManager`. This we will change later to be done with a database. 
+
 
 
 ## Roles
@@ -325,10 +327,10 @@ Now you should see the login page.
 
 To create a login page add this to the `http` object in the `ApplicationSecurityConfig` file.
 
-```
+```java
 .and()
 .formLogin()
-.loginPage("/login");
+.loginPage("/login").permitAll();
 ```
 
 
@@ -408,5 +410,16 @@ public class TemplateController {
 </form>
 </body>
 </html>
+```
+
+
+
+### Redirecting after logged in
+
+If you wanted to go to `/courses` after login success
+
+```
+.loginPage("/login").permitAll()
+.defaultSuccessUrl("/courses", true);
 ```
 
