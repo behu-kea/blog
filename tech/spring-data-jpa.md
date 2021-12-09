@@ -19,9 +19,13 @@ Add this to your maven file
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
+<dependency>
+     <groupId>mysql</groupId>
+     <artifactId>mysql-connector-java</artifactId>
+</dependency>
 ```
 
- Your `application.properties` file should look like this. Adding the correct database url and username and password!
+Your `application.properties` file should look like this. Adding the correct database url and username and password!
 
 ```java
 spring.datasource.url=jdbc:mysql://localhost:3306/jpa-data
@@ -29,7 +33,7 @@ spring.datasource.username=
 spring.datasource.password=
 spring.jpa.hibernate.ddl-auto=create-drop
 spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.properties.hibernate.format_sql=true
 ```
 
@@ -78,6 +82,22 @@ This is because we have this setting in the application.properties:
 
 ```
 spring.jpa.show-sql=true
+```
+
+
+
+### Autoincrement id
+
+```java
+@Entity(name = "cinema")
+public class Cinema {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+    private String name;
+    private String website;
+}
 ```
 
 
@@ -146,3 +166,104 @@ public class StudentController {
 }
 ```
 
+
+
+## Relationships
+
+In a database you can have quite a lot of different relationships. Fx one to one, one to many, many to many. This part will be about how to set that up
+
+
+
+### Many to many
+
+Let's use the example of a movie having multiple categories and a category having multiple movies. 
+
+**`Movie`**
+
+```java
+@ManyToMany
+@JoinTable(
+  name = "categories_in_movies",
+  joinColumns = @JoinColumn(name = "movie_id"),
+  inverseJoinColumns = @JoinColumn(name = "category_id")
+)
+private Set<MovieCategory> categories = new HashSet<>();
+```
+
+To create a many to many relationship, we need a third table holding what categories is connected to what movies. We do that with `@JoinTable`. It takes a name, a join column and the column to other reference (`movie_id` and `category_id`)
+
+
+
+![Many to many join table](../assets/many-to-many-join-table.png)
+
+
+
+**`MovieCategory`**
+
+```java
+@JsonBackReference
+@ManyToMany(mappedBy = "categories")
+private Set<Movie> movies = new HashSet<>();
+```
+
+In the `MovieCategory` we need to tell where the movies can be found, from a category perspective. We do that with `mappedby`. Here we to reference the **object name** which in `Movie` is called `categories`!
+
+
+
+`JsonBackReference` will stop the recursive nature of fx showing a movie and then showing that movies categories, then showing the movies connected to that category and so on. `@JsonBackReference` will do so that `MovieCategory` has no `movies` attribute. They are simply not shown!
+
+![Many to many recursive](../assets/many-to-many-recursive.png)
+
+Here we see the recursive problem with not having `JsonBackReference`
+
+
+
+## One to many
+
+Let's go with the example of one can belong to a program but a program can have multiple movies
+
+
+
+**`Program`**
+
+```java
+@OneToMany(mappedBy = "program")
+private Set<Movie> movies = new HashSet<>();
+```
+
+So here we use the `OneToMany` since one program can have multiple movies connected. `program` refers to the object in `Movie` seen below
+
+
+
+**`movie`**
+
+On the movie side of things we can write 
+
+```java
+@ManyToOne(cascade = CascadeType.ALL)
+@JoinColumn(name = "program_id", referencedColumnName = "id")
+private Program program;
+```
+
+`ManyToOne` is written because there are many movies and they all have just one program. Or more many movies can belong to one program.
+
+This part:`@JoinColumn(name = "program_id", referencedColumnName = "id")` will create a new column in movies where `program_id` refers to the `id` of a `Program`
+
+![CleanShot 2021-12-07 at 15.03.07@2x](../assets/jpa-relationships-one-to-many.png)
+
+
+
+
+
+## Gotchas
+
+- If you return a object in a RestController but are not seeing any data in the json. Then remember to give the class setters for the attributes you want to see!
+- No `-` in the sql names! `categories-in-movies` should be `categories_in_movies`
+
+
+
+## Questions
+
+- I have movies and categories. I want a movie to show what categories is connected to the movie. But also show what movies are in what categories. I dont seem to be able to fix this. I have tried `@JsonIgnore` and `@JsonBackReference`
+- Hvad hører til hvad. Hvor er det man skal lave `mappedBy` og hvor skal man lave `JoinColumn` og `JoinTable`? Altså hvor skal data høre join column høre til. Det har jo nok noget at gøre medhvor man skal bruge det
+- 

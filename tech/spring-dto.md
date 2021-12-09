@@ -105,3 +105,63 @@ Now what needs to be done in the controller is that fx for the endpoint `api/ord
 
 
 
+The conversion can happen the old school way: 
+
+```java
+@GetMapping("movie-categories-dto/{id}")
+public MovieCategoryDto getCategoryMovieDto(@PathVariable Long id) {
+    MovieCategory movieCategory = movieCategoryRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No name found for: " + id));
+    MovieCategoryDto movieCategoryDto = new MovieCategoryDto(movieCategory.getName());
+    return movieCategoryDto;
+}
+```
+
+
+
+Or a fancy way using `ModelMapper`:
+
+```java
+public class OrderControllerImpl implements OrderControllerInterface{
+    OrderServiceInterface orderService;
+    ModelMapper modelMapper; // for entity <--> DTO conversion
+
+    @Autowired
+    public OrderControllerImpl(OrderServiceInterface orderService, ModelMapper modelMapper) {
+        this.orderService = orderService;
+        this.modelMapper = modelMapper;
+    }
+
+    //helper method to convert entity -> DTO
+    private OrderDto convertToDto(Order order) {
+        return modelMapper.map(order, OrderDto.class);
+    }
+
+    //helper method to convert DTO -> entity
+    private Order convertToEntity(OrderDto orderDto) {
+        return modelMapper.map(orderDto, Order.class);
+    }
+
+    @Override
+    public List<OrderDto> getAll() {
+        return orderService.getAll()
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderDto getById(int id) {
+        return convertToDto(orderService.getById(id));
+    }
+
+    @Override
+    public void create(OrderDto orderDto) {
+        orderService.create(convertToEntity(orderDto));
+    }
+
+    @Override
+    public void delete(int id) {
+        orderService.delete(id);
+    }
+}
+```
