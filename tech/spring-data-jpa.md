@@ -264,6 +264,6 @@ This part:`@JoinColumn(name = "program_id", referencedColumnName = "id")` will c
 
 ## Questions
 
-- I have movies and categories. I want a movie to show what categories is connected to the movie. But also show what movies are in what categories. I dont seem to be able to fix this. I have tried `@JsonIgnore` and `@JsonBackReference`
-- Hvad hører til hvad. Hvor er det man skal lave `mappedBy` og hvor skal man lave `JoinColumn` og `JoinTable`? Altså hvor skal data høre join column høre til. Det har jo nok noget at gøre medhvor man skal bruge det
+- I have movies and categories. I want a movie to show what categories is connected to the movie. But also show what movies are in what categories. I dont seem to be able to fix this. I have tried `@JsonIgnore` and `@JsonBackReference` Fixer med DTO
+- Hvad hører til hvad. Hvor er det man skal lave `mappedBy` og hvor skal man lave `JoinColumn` og `JoinTable`? Altså hvor skal data høre join column høre til. Det har jo nok noget at gøre medhvor man skal bruge det. **Det kommer an på usecasen. Det gør typisk ikke den store forskel** 
 - 
