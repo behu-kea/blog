@@ -10,6 +10,8 @@
 - Alt tab windows - `option` + `tab` with AltTab application
 - Click screenshot - `shift` + `cmd` + `4`
 - Emoji - `cmd` + `ctrl` + `space`
+- Show hidden files - `cmd` + `shift` + `.`
+- Låse skærmen - `cmd` + `ctrl` + `q`
 
 
 
@@ -37,6 +39,13 @@
 - Next occurence - `ctrl` + `g`
 - Run project - `Shift` + `ctrl` +  `r` 
 - Reload project - `ctrl` + `r`
+
+
+
+## Webstorm
+
+- Skrifttypen mindre - `ctrl` + `shift` + `komma`
+- Skrifttypen større - `ctrl` + `shift` + `.`
 
 
 
