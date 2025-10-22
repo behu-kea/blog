@@ -12,6 +12,7 @@
 - Emoji - `cmd` + `ctrl` + `space`
 - Show hidden files - `cmd` + `shift` + `.`
 - Låse skærmen - `cmd` + `ctrl` + `q`
+- Caffeinate - `caffeinate - dimsu`
 
 
 
